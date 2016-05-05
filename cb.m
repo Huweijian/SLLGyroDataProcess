@@ -12,8 +12,8 @@ function cb(s, BytesAvailable)
     isShowCurve = 1;
     xmid = 0;
     ymid = 0;
-    xwide = 2000;
-    ywide = 2000;
+    xwide = 5000;
+    ywide = 5000;
     
     
     a = fread(s, 25)';
@@ -29,10 +29,14 @@ function cb(s, BytesAvailable)
     v4 = char2short(a(19), a(20));
     
     time = a(21) + a(22) * 2^8;
-    sp = [v1, v2, v3, v4];
+    sp = [v1, v2, v3, v4] / 128 / 74.037 * 1000; % mm
     acc = [ax, ay, az] / 32768 * 16;
     gyro = [gx, gy, gz] / 32768 * 2000;
     tem = [time, sp, acc, gyro];
+    
+    if max(abs(sp - m(end, 2:5))) > 2000
+        return;
+    end
     
     v2s(sp, time);
     
@@ -62,7 +66,7 @@ function cb(s, BytesAvailable)
     
     if isShowCurve && mod(ii, div) == 0;
         hold on;
-        plot(Sx, Sy, '*');
+        plot(Sy, Sx, '*');
         axis([xmid - xwide xmid + xwide ymid - ywide ymid + ywide])
 %         [Sx, Sy]
     end;

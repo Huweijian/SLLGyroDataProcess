@@ -1,12 +1,16 @@
 clear;
 
 clImage = 0;
-set(gcf,'position', [150, 150, 500, 500]);
+
 load('data_quite.mat');
 m = m(2:length(m), :);
 time = m(:, 1);
 speed = m(:, 2:5);
-div = 10;
+acc = m(:, 6:8);
+gyro = m(:, 9:11);
+
+set(gcf,'position', [150, 150, 500, 500]);
+div = 5;
 rWheel = 56.5/2;
 speed = speed / 128 / 74.037 * 1000  ;  %mm/s 
 

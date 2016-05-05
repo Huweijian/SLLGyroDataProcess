@@ -3,7 +3,7 @@ function [] = v2s( B, time )
 %   Detailed explanation goes here
 global A timeOld Sx Sy Sr;
 rCar = 82;%79;
-B = B/ 128 / 74.037 * 1000;
+% B = B/ 128 / 74.037 * 1000;
 
     X = A \ (B');
     tm = mod((time - timeOld + 65535), 65535) / 1000; % second
